@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 project(hjop-pt-cpp-template)
 
 set(SOURCE_FILES
-	main.cpp
+    main.cpp
+    pt-api.cpp
 )
 
 add_executable(hjop-pt-cpp-template ${SOURCE_FILES})
