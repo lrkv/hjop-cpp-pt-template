@@ -25,7 +25,7 @@ public:
     virtual ~PtAPI() = default;
 
     nlohmann::json get(const std::string& path);
-    void put(const std::string& path, const nlohmann::json& content);
+    nlohmann::json put(const std::string& path, const nlohmann::json& content);
 };
 
 #endif

@@ -15,12 +15,7 @@ PtAPI::PtAPI(
 
 nlohmann::json PtAPI::get(const std::string& path) {
     httplib::Client client(this->hostname, this->port);
-
-    std::string _path = path;
-    if (_path[0] != '/')
-        _path = "/" + _path;
-    auto result = client.Get(_path);
-
+    auto result = client.Get(path);
     if (result->status != httplib::StatusCode::OK_200)
         throw PtJsonException(result->status, result->body);
     nlohmann::json json = nlohmann::json::parse(result->body);
@@ -29,6 +24,27 @@ nlohmann::json PtAPI::get(const std::string& path) {
     return json;
 }
 
-void PtAPI::put(const std::string& path, const nlohmann::json& content) {
+nlohmann::json PtAPI::put(const std::string& path, const nlohmann::json& content) {
+    httplib::Client client(this->hostname, this->port);
+    std::string contentStr = content.dump();
 
+    this->username + ":" + this->password;
+    httplib::Headers headers {
+        {"Authorization", "Basic bHJrdjp5MlF0Qms5cmp1UWhmN2VG"}
+    };
+
+    auto result = client.Put(
+        path,
+        headers,
+        contentStr.c_str(),
+        contentStr.size(),
+        "application/json"
+    );
+
+    if (result->status != httplib::StatusCode::OK_200)
+        throw PtJsonException(result->status, result->body);
+    nlohmann::json json = nlohmann::json::parse(result->body);
+    if (json.contains("errors"))
+        throw PtJsonException(result->status, result->body);
+    return json;
 }
