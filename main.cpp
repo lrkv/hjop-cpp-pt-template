@@ -4,12 +4,17 @@
 
 int main(int argc, char* argv[]) {
     try {
-        PtAPI ptAPI("10.30.137.11");
+        PtAPI ptAPI("192.168.42.143");
         std::cout << ptAPI.get("/status") << std::endl;
-        std::cout << ptAPI.get("/blockState/125") << std::endl;
+
+        // Change turnout to reverse position
+        nlohmann::json turnoutState = ptAPI.get("/blockState/125")["blockState"];
+        std::cout << turnoutState << std::endl;
+        std::string newPosition = (turnoutState["position"] == "+" ? "-" : "+");
         std::cout << ptAPI.put("/blockState/125", {
-            {"blockState", {{"position", "+"}}}
+            {"blockState", {{"position", newPosition}}}
         }) << std::endl;
+
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 2;
