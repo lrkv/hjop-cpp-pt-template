@@ -3,8 +3,8 @@
 
 #include <string>
 #include <optional>
-#include "cpp-httplib/httplib.h"
-#include "nlohmann/json.hpp"
+#include "httplib.h"
+#include "json.hpp"
 
 struct PtException : public std::exception {
 protected:

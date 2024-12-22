@@ -8,6 +8,9 @@ set(SOURCE_FILES
 
 add_executable(hjop-pt-cpp-template ${SOURCE_FILES})
 
+target_include_directories(hjop-pt-cpp-template PUBLIC lib/cpp-httplib)
+target_include_directories(hjop-pt-cpp-template PUBLIC lib/nlohmann)
+
 # Configure compiler warnings
 if (CMAKE_C_COMPILER_ID MATCHES Clang OR ${CMAKE_C_COMPILER_ID} STREQUAL GNU)
   # using regular Clang, AppleClang or GCC

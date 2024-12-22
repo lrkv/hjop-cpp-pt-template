@@ -2,8 +2,8 @@
 #define __PT_API__
 
 #include <string>
-#include "cpp-httplib/httplib.h"
-#include "nlohmann/json.hpp"
+#include "httplib.h"
+#include "json.hpp"
 
 class PtAPI {
 private:
