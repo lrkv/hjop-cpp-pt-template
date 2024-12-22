@@ -2,11 +2,12 @@
 #define __PT_ERRORS__
 
 #include <string>
+#include <optional>
 #include "cpp-httplib/httplib.h"
 #include "nlohmann/json.hpp"
 
 struct PtException : public std::exception {
-private:
+protected:
     std::string m_msg;
 
 public:
@@ -24,28 +25,26 @@ public:
 struct PtError {
     int code;
     std::string title;
+    std::optional<std::string> detail;
 };
 
 struct PtJsonException : public PtException {
-private:
-    std::string m_msg;
+    std::vector<PtError> errors; // PT server sends array of errors
 
-public:
-    std::vector<PtError> errors;
-
-    PtJsonException(int statusCode, const std::string& body) :
-        PtException(statusCode, body), m_msg("") {
+    PtJsonException(int statusCode, const std::string& body) : PtException(statusCode, body) {
+        this->m_msg = "";
         nlohmann::json json = nlohmann::json::parse(body);
         for (auto& error : json["errors"]) {
+            std::optional<std::string> detail;
+            if (error.contains("detail"))
+                detail = error["detail"];
             std::string codeStr = error["code"]; // TODO why is it string?
-            PtError ptError{std::stoi(codeStr), error["title"]};
+            PtError ptError{std::stoi(codeStr), error["title"], detail};
             this->errors.push_back(ptError);
-            m_msg += std::to_string(ptError.code) + " " + ptError.title + "\n";
+            this->m_msg += error.dump() + '\n';
         }
-        m_msg.pop_back();
+        this->m_msg.pop_back();
     }
-
-    const char* what() const noexcept override { return this->m_msg.c_str(); }
 };
 
 #endif
