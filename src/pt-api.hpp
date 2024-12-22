@@ -6,11 +6,10 @@
 #include "json.hpp"
 
 class PtAPI {
-private:
+public:
     inline static const std::string DEFAULT_HOSTNAME = "localhost";
     inline static constexpr uint16_t DEFAULT_PORT = 5823;
 
-public:
     std::string hostname;
     uint16_t port;
     std::string username;

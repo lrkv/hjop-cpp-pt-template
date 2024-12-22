@@ -3,7 +3,9 @@ hJOP PT server C++ client template
 
 ## Dependencies
 
+* <https://github.com/nlohmann/json>
 * <https://github.com/yhirose/cpp-httplib>
+* <https://github.com/tobiaslocker/base64>
 
 ## Build
 

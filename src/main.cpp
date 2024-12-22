@@ -1,10 +1,19 @@
+/* Example of usage of PtAPI library.
+ */
+
 #include <iostream>
 #include "pt-api.hpp"
 #include "pt-errors.hpp"
 
 int main(int argc, char* argv[]) {
     try {
-        PtAPI ptAPI("192.168.42.143");
+        PtAPI ptAPI(
+            "192.168.42.143",
+            PtAPI::DEFAULT_PORT,
+            "lrkv", // username
+            "y2QtBk9rjuQhf7eF" // password
+        );
+
         std::cout << ptAPI.get("/status") << std::endl;
 
         // Change turnout to reverse position

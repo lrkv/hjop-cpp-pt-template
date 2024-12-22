@@ -1,5 +1,6 @@
 #include "pt-api.hpp"
 #include "pt-errors.hpp"
+#include "base64.hpp"
 
 PtAPI::PtAPI(
     const std::string& hostname,
@@ -28,9 +29,9 @@ nlohmann::json PtAPI::put(const std::string& path, const nlohmann::json& content
     httplib::Client client(this->hostname, this->port);
     std::string contentStr = content.dump();
 
-    this->username + ":" + this->password;
+    std::string encoded = base64::to_base64(this->username + ":" + this->password);
     httplib::Headers headers {
-        {"Authorization", "Basic bHJrdjp5MlF0Qms5cmp1UWhmN2VG"}
+        {"Authorization", "Basic "+encoded}
     };
 
     auto result = client.Put(
