@@ -12,6 +12,7 @@ target_include_directories(hjop-pt-cpp-template PUBLIC src)
 target_include_directories(hjop-pt-cpp-template PUBLIC lib/cpp-httplib)
 target_include_directories(hjop-pt-cpp-template PUBLIC lib/nlohmann)
 target_include_directories(hjop-pt-cpp-template PUBLIC lib/base64/include)
+target_include_directories(hjop-pt-cpp-template PUBLIC lib/nlohmann/single_include/nlohmann)
 
 # Configure compiler warnings
 if (CMAKE_C_COMPILER_ID MATCHES Clang OR ${CMAKE_C_COMPILER_ID} STREQUAL GNU)
