@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.0)
 project(hjop-pt-cpp-template)
 
 set(SOURCE_FILES
-    main.cpp
-    pt-api.cpp
+    src/main.cpp
+    src/pt-api.cpp
 )
 
 add_executable(hjop-pt-cpp-template ${SOURCE_FILES})
 
+target_include_directories(hjop-pt-cpp-template PUBLIC src)
 target_include_directories(hjop-pt-cpp-template PUBLIC lib/cpp-httplib)
 target_include_directories(hjop-pt-cpp-template PUBLIC lib/nlohmann)
 
