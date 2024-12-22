@@ -1,3 +1,6 @@
+/* Simple low-level library to access hJOP PTserver.
+ */
+
 #ifndef __PT_API__
 #define __PT_API__
 

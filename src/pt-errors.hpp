@@ -1,3 +1,6 @@
+/* Error definition of PtAPI library.
+ */
+
 #ifndef __PT_ERRORS__
 #define __PT_ERRORS__
 
@@ -6,6 +9,10 @@
 #include "httplib.h"
 #include "json.hpp"
 
+/* Raw PtException is generated, when PTserver returns http code != 200 OK.
+ * The PtException contains raw body as a std::string, no json parsing is
+ * performed.
+ */
 struct PtException : public std::exception {
 protected:
     std::string m_msg;
@@ -22,6 +29,11 @@ public:
     const char* what() const noexcept override { return this->m_msg.c_str(); }
 };
 
+
+/* PtJsonException is a standard PTserver's return error - server responds with
+ * 200 OK but returns json with "errors" list. Each error is represented as a
+ * PtError struct instance.
+ */
 struct PtError {
     int code;
     std::string title;

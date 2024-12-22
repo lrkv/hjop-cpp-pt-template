@@ -1,3 +1,5 @@
+/* PtAPI library implementation */
+
 #include "pt-api.hpp"
 #include "pt-errors.hpp"
 #include "base64.hpp"
