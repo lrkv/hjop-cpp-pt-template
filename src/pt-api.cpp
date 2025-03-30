@@ -18,7 +18,9 @@ PtAPI::PtAPI(
 
 nlohmann::json PtAPI::get(const std::string& path) {
     httplib::Client client(this->hostname, this->port);
-    auto result = client.Get(path);
+    httplib::Result result = client.Get(path);
+    if (!result)
+        throw PtException(503, httplib::to_string(result.error()));
     if (result->status != httplib::StatusCode::OK_200)
         throw PtJsonException(result->status, result->body);
     nlohmann::json json = nlohmann::json::parse(result->body);
